@@ -3,367 +3,398 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AIP Services — Estúdio de jogos 2D Pixel Art</title>
+<title>AIP Services — Estúdio independente de jogos, software e experiências digitais</title>
+<meta name="description" content="AIP Services é um estúdio independente que desenvolve jogos, software e projetos digitais originais. Conheça a equipe e o AIP Fighters, nosso jogo de luta 2D em desenvolvimento.">
+
+<!-- Open Graph — atualize og:url e og:image com o endereço real quando o site estiver publicado -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="AIP Services — Criamos ideias. Construímos experiências.">
+<meta property="og:description" content="Estúdio independente de jogos, software e experiências digitais. Conheça a equipe e o AIP Fighters, nosso jogo de luta 2D em desenvolvimento.">
+<meta property="og:image" content="">
+<meta property="og:url" content="">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AIP Services">
+<meta name="twitter:description" content="Estúdio independente de jogos, software e experiências digitais.">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230A0A0C'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-size='18' font-weight='700' fill='%23EDEDED' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Silkscreen:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
   :root{
-    --ink: #0A0A0A;
-    --paper: #FFFFFF;
-    --off: #F4F4F4;
-    --muted: #6E6E6E;
-    --muted-inv: #A6A6A6;
-    --line: #DEDEDE;
-    --line-inv: #2C2C2C;
-    --maxw: 1140px;
-    --r: 3px;
+    --bg: #0A0A0C;
+    --panel: #131317;
+    --panel-2: #191A20;
+    --line: rgba(255,255,255,0.09);
+    --text: #EDEDED;
+    --muted: #93939C;
+    --accent: #6C7CF6;
+    --accent-dim: rgba(108,124,246,0.14);
+    --r: 10px;
+    --maxw: 1120px;
   }
   *{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
   body{
-    margin:0; background:var(--paper); color:var(--ink);
+    margin:0; background:var(--bg); color:var(--text);
     font-family:'Inter',sans-serif; font-size:16px; line-height:1.65;
     -webkit-font-smoothing:antialiased;
   }
-  h1,h2,h3,.display{ font-family:'Space Grotesk',sans-serif; font-weight:600; line-height:1.1; margin:0; letter-spacing:-0.01em; }
-  .pixel{ font-family:'Silkscreen',monospace; }
+  h1,h2,h3,.display{ font-family:'Space Grotesk',sans-serif; font-weight:600; line-height:1.15; margin:0; letter-spacing:-0.01em; }
   a{ color:inherit; text-decoration:none; }
-  ::selection{ background:var(--ink); color:var(--paper); }
+  img{ max-width:100%; display:block; }
+  ::selection{ background:var(--accent); color:#fff; }
   @media (prefers-reduced-motion:reduce){ *{ animation:none !important; transition:none !important; } }
-  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 28px; }
-  section{ padding:100px 0; }
-  .invert{ background:var(--ink); color:var(--paper); }
-  .invert .muted{ color:var(--muted-inv) !important; }
 
-  /* reveal on scroll */
-  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
-  .reveal.in{ opacity:1; transform:none; }
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 24px; }
+  section{ padding:88px 0; }
+
+  .kicker{ font-size:0.8rem; font-weight:600; color:var(--accent); margin-bottom:14px; letter-spacing:0.02em; }
+  .sec-head{ max-width:620px; margin-bottom:48px; }
+  .sec-head h2{ font-size:clamp(1.6rem,3vw,2.1rem); }
+  .sec-head p{ color:var(--muted); margin-top:12px; font-size:1rem; }
+
+  .btn{ display:inline-flex; align-items:center; gap:8px; padding:13px 24px; border-radius:8px; font-weight:600; font-size:0.93rem; transition:all .2s; border:1px solid transparent; cursor:pointer; }
+  .btn-primary{ background:var(--accent); color:#fff; }
+  .btn-primary:hover{ background:#5a6bf0; transform:translateY(-1px); }
+  .btn-ghost{ border-color:var(--line); color:var(--text); background:transparent; }
+  .btn-ghost:hover{ border-color:var(--accent); color:var(--accent); }
+
+  /* ---------- LOADING BAR (transição entre páginas) ---------- */
+  .loading-bar{
+    position:fixed; top:0; left:0; height:2px; width:0%; background:var(--accent);
+    z-index:200; opacity:1;
+  }
+  .loading-bar.running{ transition:width .28s ease; width:78%; }
+  .loading-bar.done{ transition:width .18s ease; width:100%; }
+  .loading-bar.hide{ transition:opacity .25s ease .1s; opacity:0; }
 
   /* ---------- NAV ---------- */
-  header.nav{
-    position:sticky; top:0; z-index:60; background:rgba(255,255,255,0.92);
-    backdrop-filter:blur(8px); border-bottom:1px solid var(--line);
+  header.nav{ position:sticky; top:0; z-index:80; background:rgba(10,10,12,0.85); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
+  .nav-inner{ display:flex; align-items:center; justify-content:space-between; padding:16px 24px; max-width:var(--maxw); margin:0 auto; }
+  .logo{ display:flex; align-items:center; gap:9px; font-weight:700; font-size:1.02rem; cursor:pointer; }
+  .logo .mark{ width:8px; height:8px; border-radius:50%; background:var(--accent); }
+  nav.links{ display:flex; gap:28px; }
+  nav.links a{ color:var(--muted); font-size:0.92rem; transition:color .2s; padding-bottom:2px; border-bottom:1px solid transparent; }
+  nav.links a:hover{ color:var(--text); }
+  nav.links a.active{ color:var(--text); border-bottom-color:var(--accent); }
+  .nav-actions{ display:flex; align-items:center; gap:18px; }
+  .burger{ display:none; background:none; border:0; color:var(--text); cursor:pointer; padding:6px; }
+  .burger svg{ width:22px; height:22px; }
+
+  .mobile-menu{
+    display:none; position:fixed; inset:0; z-index:90; background:var(--bg);
+    padding:24px; flex-direction:column;
   }
-  .nav-inner{ display:flex; align-items:center; justify-content:space-between; padding:18px 28px; max-width:var(--maxw); margin:0 auto; }
-  .logo{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:1.05rem; }
-  .logo .px{ width:12px; height:12px; background:var(--ink); animation:blink 1.4s steps(1) infinite; }
-  @keyframes blink{ 0%,49%{ opacity:1; } 50%,100%{ opacity:0.15; } }
-  nav.links{ display:flex; gap:30px; }
-  nav.links a{ color:var(--muted); font-size:0.92rem; transition:color .2s; position:relative; }
-  nav.links a::after{ content:''; position:absolute; left:0; bottom:-4px; width:0; height:1px; background:var(--ink); transition:width .25s; }
-  nav.links a:hover{ color:var(--ink); }
-  nav.links a:hover::after{ width:100%; }
-  .nav-cta{ background:var(--ink); color:var(--paper); padding:10px 20px; font-size:0.88rem; font-weight:600; border-radius:var(--r); transition:opacity .2s; }
-  .nav-cta:hover{ opacity:0.75; }
-  .burger{ display:none; }
+  .mobile-menu.open{ display:flex; }
+  .mobile-menu-top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:40px; }
+  .mobile-menu a{ font-family:'Space Grotesk'; font-size:1.4rem; padding:14px 0; border-bottom:1px solid var(--line); color:var(--text); }
+  .mobile-menu a.active{ color:var(--accent); }
+
+  /* ---------- PAGE ROUTER ---------- */
+  main#app{ min-height:60vh; }
+  .page{ display:none; }
+  .page.active{ display:block; }
+  .page.anim-out{ animation:pageOut .18s ease forwards; }
+  .page.anim-in{ animation:pageIn .3s ease forwards; }
+  @keyframes pageOut{ from{ opacity:1; transform:translateY(0); } to{ opacity:0; transform:translateY(-10px); } }
+  @keyframes pageIn{ from{ opacity:0; transform:translateY(12px); } to{ opacity:1; transform:translateY(0); } }
+
+  .reveal{ opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease; }
+  .reveal.in{ opacity:1; transform:none; }
 
   /* ---------- HERO ---------- */
-  .hero{ position:relative; overflow:hidden; border-bottom:1px solid var(--line); }
-  #pixelCanvas{ position:absolute; inset:0; width:100%; height:100%; opacity:0.9; }
-  .hero-inner{ position:relative; z-index:2; max-width:var(--maxw); margin:0 auto; padding:120px 28px 100px; }
-  .hero-tag{ display:flex; align-items:center; gap:10px; font-size:0.82rem; color:var(--muted); margin-bottom:22px; }
-  .hero-tag .pixel{ background:var(--ink); color:var(--paper); padding:4px 8px; font-size:0.7rem; }
-  .hero h1{ font-size:clamp(2.4rem,5.4vw,4.1rem); max-width:15ch; opacity:0; transform:translateY(18px); animation:rise .85s .1s cubic-bezier(.2,.7,.2,1) forwards; }
-  .hero p.lead{ color:var(--muted); max-width:52ch; margin-top:24px; font-size:1.08rem; opacity:0; transform:translateY(18px); animation:rise .85s .28s cubic-bezier(.2,.7,.2,1) forwards; }
-  .hero-ctas{ display:flex; gap:14px; margin-top:36px; flex-wrap:wrap; opacity:0; transform:translateY(18px); animation:rise .85s .44s cubic-bezier(.2,.7,.2,1) forwards; }
-  @keyframes rise{ to{ opacity:1; transform:none; } }
-
-  .btn{ display:inline-flex; align-items:center; gap:8px; padding:14px 26px; border-radius:var(--r); font-weight:600; font-size:0.94rem; transition:all .2s; border:1px solid var(--ink); cursor:pointer; }
-  .btn-primary{ background:var(--ink); color:var(--paper); }
-  .btn-primary:hover{ background:#2a2a2a; transform:translateY(-2px); }
-  .btn-ghost{ background:transparent; color:var(--ink); }
-  .btn-ghost:hover{ background:var(--ink); color:var(--paper); }
-  .invert .btn-ghost{ border-color:var(--paper); color:var(--paper); }
-  .invert .btn-ghost:hover{ background:var(--paper); color:var(--ink); }
-
-  /* ---------- SECTION HEAD ---------- */
-  .kicker{ font-size:0.8rem; font-weight:700; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
-  .kicker .dash{ width:20px; height:1px; background:currentColor; display:inline-block; }
-  .sec-head{ max-width:640px; margin-bottom:52px; }
-  .sec-head h2{ font-size:clamp(1.7rem,3.2vw,2.4rem); }
-  .sec-head p{ color:var(--muted); margin-top:14px; font-size:1.02rem; }
-
-  /* ---------- ABOUT ---------- */
-  .about-inner{ display:grid; grid-template-columns:0.55fr 1fr; gap:56px; align-items:start; }
-  .about-quote{ font-family:'Space Grotesk'; font-size:1.5rem; line-height:1.4; }
-  .pillars{ display:flex; flex-direction:column; gap:22px; margin-top:8px; }
-  .pillar{ border-top:1px solid var(--line-inv); padding-top:16px; }
-  .pillar .num{ font-family:'Silkscreen'; font-size:0.75rem; color:var(--muted-inv); }
-  .pillar h4{ font-family:'Space Grotesk'; font-size:1rem; margin-top:6px; }
-
-  /* pixel sprite */
-  .sprite-wrap{ display:flex; justify-content:center; align-items:center; padding:20px 0; }
-  .sprite{ width:6px; height:6px; background:transparent; position:relative;
-    box-shadow:
-      6px 0 0 var(--paper), 12px 0 0 var(--paper), 18px 0 0 var(--paper),
-      0 6px 0 var(--paper), 24px 6px 0 var(--paper),
-      0 12px 0 var(--paper), 6px 12px 0 var(--paper), 12px 12px 0 var(--paper), 18px 12px 0 var(--paper), 24px 12px 0 var(--paper),
-      6px 18px 0 var(--paper), 18px 18px 0 var(--paper),
-      6px 24px 0 var(--paper), 18px 24px 0 var(--paper);
-    animation: idle 1.6s steps(2) infinite;
+  .hero{ position:relative; overflow:hidden; padding-top:96px; padding-bottom:88px; }
+  .hero::before{
+    content:''; position:absolute; top:-200px; right:-150px; width:520px; height:520px;
+    background: radial-gradient(circle, var(--accent-dim), transparent 70%);
+    filter: blur(40px); animation: drift 14s ease-in-out infinite alternate;
   }
-  @keyframes idle{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-4px); } }
+  @keyframes drift{ from{ transform:translate(0,0); } to{ transform:translate(-40px,50px); } }
+  .hero-inner{ position:relative; z-index:2; max-width:720px; }
+  .hero .eyebrow{ font-size:0.85rem; color:var(--muted); margin-bottom:18px; font-weight:500; }
+  .hero h1{ font-size:clamp(2.1rem,5vw,3.1rem); }
+  .hero p.lead{ color:var(--muted); font-size:1.08rem; margin-top:20px; max-width:52ch; }
+  .hero-ctas{ display:flex; gap:14px; margin-top:32px; flex-wrap:wrap; }
 
-  /* ---------- PROJECT (AIP FIGHTERS) ---------- */
-  .project{ border-bottom:1px solid var(--line); }
-  .project-inner{ display:grid; grid-template-columns:1fr 0.85fr; gap:56px; align-items:center; }
-  .status{ display:inline-flex; align-items:center; gap:8px; font-size:0.82rem; color:var(--muted); margin-bottom:22px; }
-  .status .dot{ width:8px; height:8px; border-radius:50%; background:var(--ink); animation:pulse 1.5s ease-in-out infinite; }
-  @keyframes pulse{ 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:0.35; transform:scale(1.4); } }
-  .game-title{ font-size:clamp(2.4rem,6vw,3.6rem); letter-spacing:-0.02em; }
-  .project p.desc{ color:var(--muted); max-width:46ch; margin-top:18px; font-size:1.02rem; }
-  .badges{ display:flex; gap:10px; margin-top:28px; flex-wrap:wrap; }
-  .badge{ border:1px solid var(--ink); border-radius:var(--r); padding:8px 14px; font-size:0.82rem; display:flex; align-items:center; gap:8px; }
-  .badge .k{ color:var(--muted); }
+  /* ---------- O QUE FAZEMOS ---------- */
+  .areas-section{ padding-top:8px; border-top:1px solid var(--line); }
+  .areas-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--r); overflow:hidden; }
+  .area{ background:var(--panel); padding:32px; transition:background .2s; }
+  .area:hover{ background:var(--panel-2); }
+  .area .ico{ font-size:1.4rem; margin-bottom:14px; display:block; }
+  .area h3{ font-size:1.05rem; margin-bottom:8px; }
+  .area p{ color:var(--muted); font-size:0.92rem; margin:0; }
 
-  .vs-panel{ border:1px solid var(--ink); border-radius:6px; padding:36px 28px; text-align:center; position:relative; overflow:hidden; }
-  .vs-panel::before{ content:''; position:absolute; inset:0; background:repeating-linear-gradient(0deg, var(--ink) 0 1px, transparent 1px 4px); opacity:0.04; pointer-events:none; }
-  .vs-mark{ font-family:'Silkscreen'; font-size:2.6rem; }
-  .vs-panel .row{ display:flex; justify-content:space-between; margin-top:22px; font-size:0.82rem; color:var(--muted); }
-  .healthbar{ height:8px; border:1px solid var(--ink); margin-top:24px; overflow:hidden; }
-  .healthbar span{ display:block; height:100%; background:var(--ink); width:64%; animation:health 3.5s ease-in-out infinite alternate; }
-  @keyframes health{ from{ width:40%; } to{ width:78%; } }
+  /* ---------- PROJETOS ---------- */
+  .project-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--r);
+    padding:36px; display:grid; grid-template-columns:1fr auto; gap:24px; align-items:center;
+  }
+  .status-badge{ display:inline-flex; align-items:center; gap:8px; font-size:0.78rem; color:var(--muted); margin-bottom:16px; }
+  .status-badge .dot{ width:7px; height:7px; border-radius:50%; background:var(--accent); }
+  .project-card h3{ font-size:1.5rem; }
+  .project-card .tag{ color:var(--accent); font-size:0.85rem; font-weight:600; margin-bottom:6px; display:block; }
+  .project-card p{ color:var(--muted); font-size:0.96rem; margin-top:10px; max-width:44ch; }
 
-  /* ---------- TEAM ---------- */
-  .team-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line-inv); border:1px solid var(--line-inv); }
-  .member{ background:var(--ink); padding:28px 22px; transition:background .25s, color .25s; }
-  .member:hover{ background:var(--paper); color:var(--ink); }
-  .member .role{ font-family:'Silkscreen'; font-size:0.62rem; color:var(--muted-inv); letter-spacing:0.02em; }
-  .member:hover .role{ color:var(--muted); }
-  .member .name{ font-family:'Space Grotesk'; font-size:1.25rem; margin-top:10px; font-weight:600; }
-  .member.pending .name{ color:var(--muted-inv); font-family:'Inter'; font-size:1rem; font-weight:400; }
-  .member.pending:hover .name{ color:var(--muted); }
+  /* ---------- SOBRE ---------- */
+  .about-text{ max-width:680px; }
+  .about-text p{ color:var(--muted); font-size:1.05rem; margin-bottom:18px; }
+  .about-text p:first-child{ color:var(--text); font-size:1.15rem; }
 
-  /* ---------- PROCESS ---------- */
-  .process-steps{ display:grid; grid-template-columns:repeat(5,1fr); position:relative; }
-  .process-steps::before{ content:''; position:absolute; top:19px; left:8%; right:8%; height:1px; background:var(--line); }
-  .pstep{ position:relative; padding-right:16px; }
-  .pstep .idx{ width:38px; height:38px; border:1px solid var(--ink); background:var(--paper); display:flex; align-items:center; justify-content:center; font-family:'Silkscreen'; font-size:0.78rem; margin-bottom:18px; position:relative; z-index:2; }
-  .pstep h4{ font-size:1rem; margin-bottom:6px; }
-  .pstep p{ color:var(--muted); font-size:0.85rem; margin:0; }
+  /* ---------- EQUIPE ---------- */
+  .team-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+  .member{ background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:24px; transition:border-color .2s, transform .2s; }
+  .member:hover{ border-color:var(--accent); transform:translateY(-2px); }
+  .avatar{
+    width:52px; height:52px; border-radius:50%; background:var(--accent-dim); color:var(--accent);
+    display:flex; align-items:center; justify-content:center; font-family:'Space Grotesk'; font-weight:700;
+    font-size:1.05rem; margin-bottom:16px;
+  }
+  .member .name{ font-family:'Space Grotesk'; font-size:1.02rem; font-weight:600; }
+  .member .role{ color:var(--accent); font-size:0.8rem; margin-top:3px; margin-bottom:10px; }
+  .member .desc{ color:var(--muted); font-size:0.86rem; margin:0; }
 
-  /* ---------- CONTACT ---------- */
-  .contact-inner{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:56px; }
-  .contact-info{ margin-top:32px; display:flex; flex-direction:column; gap:14px; }
-  .contact-info div{ font-size:0.92rem; color:var(--muted-inv); }
-  .contact-info strong{ display:block; font-family:'Silkscreen'; font-size:0.68rem; color:var(--paper); margin-bottom:4px; }
+  /* ---------- DIÁRIO ---------- */
+  .diary-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .post{ background:var(--panel); border:1px solid var(--line); border-radius:var(--r); overflow:hidden; transition:transform .2s, border-color .2s; }
+  .post:hover{ transform:translateY(-3px); border-color:var(--accent); }
+  .post-img{ height:140px; background: linear-gradient(135deg, var(--panel-2), var(--bg)); position:relative; }
+  .post-img::after{ content:''; position:absolute; inset:0; background: repeating-linear-gradient(135deg, transparent 0 18px, rgba(255,255,255,0.03) 18px 19px); }
+  .post-body{ padding:20px; }
+  .post-date{ color:var(--muted); font-size:0.78rem; }
+  .post h4{ font-size:1rem; margin-top:8px; }
+  .post p{ color:var(--muted); font-size:0.88rem; margin-top:8px; }
+  .post .more{ color:var(--accent); font-size:0.85rem; font-weight:600; margin-top:14px; display:inline-block; }
+
+  /* ---------- CONTATO ---------- */
+  .contact-inner{ display:grid; grid-template-columns:0.8fr 1.2fr; gap:56px; }
   form{ display:flex; flex-direction:column; gap:16px; }
+  .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
   .field{ display:flex; flex-direction:column; gap:8px; }
-  .field label{ font-size:0.85rem; color:var(--muted-inv); }
-  .field input,.field textarea{ background:transparent; border:1px solid var(--line-inv); border-radius:var(--r); padding:13px 14px; color:var(--paper); font-family:'Inter'; font-size:0.95rem; outline:none; transition:border-color .2s; }
-  .field input:focus,.field textarea:focus{ border-color:var(--paper); }
-  textarea{ resize:vertical; min-height:110px; }
-  .form-msg{ font-size:0.85rem; color:var(--muted-inv); min-height:1.2em; }
+  .field label{ font-size:0.85rem; color:var(--muted); }
+  .field input, .field textarea{
+    background:var(--panel); border:1px solid var(--line); border-radius:8px;
+    padding:13px 14px; color:var(--text); font-family:'Inter'; font-size:0.95rem;
+    outline:none; transition:border-color .2s;
+  }
+  .field input:focus, .field textarea:focus{ border-color:var(--accent); }
+  textarea{ resize:vertical; min-height:120px; }
+  .field.error input, .field.error textarea{ border-color:#E5484D; }
+  .field-error{ color:#E5484D; font-size:0.8rem; min-height:1em; }
+  .hp{ position:absolute; left:-9999px; opacity:0; }
+  .form-msg{ font-size:0.88rem; color:var(--muted); min-height:1.2em; }
+  .form-msg.ok{ color:#4CAF6D; }
+  .form-msg.err{ color:#E5484D; }
 
   /* ---------- FOOTER ---------- */
-  footer{ border-top:1px solid var(--line); padding:36px 0; }
-  .foot-inner{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
-  .foot-inner .muted{ color:var(--muted); font-size:0.84rem; }
-  .foot-links{ display:flex; gap:22px; }
-  .foot-links a{ color:var(--muted); font-size:0.84rem; transition:color .2s; }
-  .foot-links a:hover{ color:var(--ink); }
+  footer{ padding:48px 0 32px; border-top:1px solid var(--line); }
+  .foot-top{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:32px; margin-bottom:32px; }
+  .foot-brand .logo{ margin-bottom:10px; }
+  .foot-brand p{ color:var(--muted); font-size:0.9rem; max-width:32ch; }
+  .foot-links{ display:flex; gap:48px; flex-wrap:wrap; }
+  .foot-col h5{ font-size:0.8rem; color:var(--muted); margin-bottom:12px; font-weight:600; }
+  .foot-col a{ display:block; color:var(--text); font-size:0.9rem; margin-bottom:9px; opacity:0.85; transition:opacity .2s; }
+  .foot-col a:hover{ opacity:1; color:var(--accent); }
+  .foot-bottom{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; padding-top:24px; border-top:1px solid var(--line); }
+  .foot-bottom .muted{ color:var(--muted); font-size:0.82rem; }
+  .foot-legal{ display:flex; gap:20px; }
+  .foot-legal a{ color:var(--muted); font-size:0.82rem; }
+  .foot-legal a:hover{ color:var(--text); }
 
   @media (max-width:880px){
-    nav.links{ display:none; }
-    .hero-inner{ padding-top:76px; }
-    .about-inner,.project-inner,.contact-inner{ grid-template-columns:1fr; }
+    nav.links, .nav-actions .btn-ghost{ display:none; }
+    .burger{ display:block; }
+    .areas-grid{ grid-template-columns:1fr; }
+    .project-card{ grid-template-columns:1fr; text-align:left; }
     .team-grid{ grid-template-columns:repeat(2,1fr); }
-    .process-steps{ grid-template-columns:1fr; gap:26px; }
-    .process-steps::before{ display:none; }
-    section{ padding:64px 0; }
+    .diary-grid{ grid-template-columns:1fr; }
+    .contact-inner{ grid-template-columns:1fr; }
+    .form-row{ grid-template-columns:1fr; }
+    section{ padding:56px 0; }
+    .hero{ padding-top:88px; }
   }
 </style>
 </head>
 <body>
 
+<div class="loading-bar" id="loadingBar"></div>
+
 <header class="nav">
   <div class="nav-inner">
-    <div class="logo"><span class="px"></span>AIP SERVICES</div>
+    <div class="logo" data-nav="inicio"><span class="mark"></span>AIP SERVICES</div>
     <nav class="links">
-      <a href="#sobre">Sobre</a>
-      <a href="#fighters">AIP Fighters</a>
-      <a href="#equipe">Equipe</a>
-      <a href="#processo">Processo</a>
-      <a href="#contato">Contato</a>
+      <a href="#inicio" data-nav="inicio">Início</a>
+      <a href="#sobre" data-nav="sobre">Sobre</a>
+      <a href="#projetos" data-nav="projetos">Projetos</a>
+      <a href="#equipe" data-nav="equipe">Equipe</a>
+      <a href="#diario" data-nav="diario">Diário</a>
+      <a href="#contato" data-nav="contato">Contacto</a>
     </nav>
-    <a href="#contato" class="nav-cta">Falar com o estúdio</a>
+    <div class="nav-actions">
+      <a href="#contato" data-nav="contato" class="btn btn-ghost">Falar connosco</a>
+      <button class="burger" id="burgerBtn" aria-label="Abrir menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
   </div>
 </header>
 
-<section class="hero">
-  <canvas id="pixelCanvas"></canvas>
-  <div class="hero-inner">
-    <div class="hero-tag"><span class="pixel">2D · PIXEL ART</span>Estúdio independente</div>
-    <h1>Mundos digitais construídos pixel a pixel.</h1>
-    <p class="lead">A AIP Services cria experiências interativas em 2D pixel art, unindo a essência dos clássicos às mecânicas modernas — com direção de arte detalhada e narrativa imersiva.</p>
-    <div class="hero-ctas">
-      <a href="#fighters" class="btn btn-primary">Conhecer o AIP Fighters</a>
-      <a href="#sobre" class="btn btn-ghost">Sobre o estúdio</a>
-    </div>
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-top">
+    <div class="logo"><span class="mark"></span>AIP SERVICES</div>
+    <button class="burger" id="closeBtn" aria-label="Fechar menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
   </div>
-</section>
+  <a href="#inicio" data-nav="inicio">Início</a>
+  <a href="#sobre" data-nav="sobre">Sobre</a>
+  <a href="#projetos" data-nav="projetos">Projetos</a>
+  <a href="#equipe" data-nav="equipe">Equipe</a>
+  <a href="#diario" data-nav="diario">Diário</a>
+  <a href="#contato" data-nav="contato">Contacto</a>
+</div>
 
-<section class="invert" id="sobre">
-  <div class="wrap about-inner">
-    <div class="reveal">
-      <div class="kicker"><span class="dash"></span>SOBRE A AIP</div>
-      <p class="about-quote">"Transformamos conceitos complexos em mundos digitais, priorizando a direção de arte e a narrativa imersiva."</p>
-      <div class="sprite-wrap"><div class="sprite"></div></div>
-    </div>
-    <div class="reveal">
-      <p style="color:var(--muted-inv); font-size:1.05rem; max-width:56ch;">A AIP Services é um estúdio de desenvolvimento de jogos independente dedicado à criação de experiências interativas em 2D pixel art. Focados na essência dos clássicos e nas mecânicas modernas, transformamos conceitos complexos em mundos digitais desde o primeiro esboço até o lançamento.</p>
-      <div class="pillars">
-        <div class="pillar"><div class="num pixel">01</div><h4>Direção de arte detalhada</h4></div>
-        <div class="pillar"><div class="num pixel">02</div><h4>Mecânicas modernas sobre bases clássicas</h4></div>
-        <div class="pillar"><div class="num pixel">03</div><h4>Narrativa imersiva</h4></div>
+<main id="app">
+
+  <!-- ================= INÍCIO ================= -->
+  <div class="page" data-page="inicio">
+    <section class="hero">
+      <div class="wrap hero-inner">
+        <div class="eyebrow">AIP SERVICES</div>
+        <h1>Criamos ideias. Construímos experiências.</h1>
+        <p class="lead">A AIP Services é um estúdio independente que desenvolve jogos, software e projetos digitais originais.</p>
+        <div class="hero-ctas">
+          <a href="#sobre" data-nav="sobre" class="btn btn-primary">Conhecer a AIP</a>
+          <a href="#projetos" data-nav="projetos" class="btn btn-ghost">Ver projetos</a>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section class="project" id="fighters">
-  <div class="wrap project-inner">
-    <div class="reveal">
-      <div class="status"><span class="dot"></span>Em desenvolvimento</div>
-      <h2 class="game-title pixel">AIP FIGHTERS</h2>
-      <p class="desc">Jogo de luta em desenvolvimento pela AIP Services, construído inteiramente na Godot Engine — combates diretos e personagens com identidade visual própria em pixel art.</p>
-      <div class="badges">
-        <div class="badge"><span class="k">Engine</span> Godot</div>
-        <div class="badge"><span class="k">Plataforma</span> Android</div>
-        <div class="badge"><span class="k">Plataforma</span> PC</div>
+    <section class="areas-section">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <div class="kicker">O QUE FAZEMOS</div>
+          <h2>Quatro áreas, um único estúdio</h2>
+        </div>
+        <div class="areas-grid reveal">
+          <div class="area">
+            <span class="ico">🎮</span>
+            <h3>Desenvolvimento de jogos</h3>
+            <p>Criamos jogos originais, desde a concepção até o desenvolvimento.</p>
+          </div>
+          <div class="area">
+            <span class="ico">💻</span>
+            <h3>Software e tecnologia</h3>
+            <p>Desenvolvemos ferramentas, aplicações e experiências digitais.</p>
+          </div>
+          <div class="area">
+            <span class="ico">🎨</span>
+            <h3>Design e criatividade</h3>
+            <p>Criamos identidades visuais, interfaces e conceitos para os nossos projetos.</p>
+          </div>
+          <div class="area">
+            <span class="ico">🎵</span>
+            <h3>Áudio</h3>
+            <p>Produzimos músicas, efeitos sonoros e elementos de áudio para experiências interativas.</p>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="reveal">
-      <div class="vs-panel">
-        <div class="vs-mark">VS</div>
-        <div class="healthbar"><span></span></div>
-        <div class="row"><span>PLAYER 01</span><span>PLAYER 02</span></div>
+    </section>
+  </div>
+
+  <!-- ================= SOBRE ================= -->
+  <div class="page" data-page="sobre">
+    <section>
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <div class="kicker">SOBRE A AIP</div>
+          <h2>Quem somos</h2>
+        </div>
+        <div class="about-text reveal">
+          <p>A AIP Services começou como um pequeno grupo de criadores com uma ideia simples: transformar ideias em projetos reais.</p>
+          <p>Hoje, trabalhamos em jogos, tecnologia e experiências digitais, aprendendo e evoluindo a cada projeto.</p>
+          <p>Somos uma equipa independente e estamos apenas a começar.</p>
+        </div>
       </div>
-    </div>
+    </section>
   </div>
-</section>
 
-<section id="equipe">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="kicker"><span class="dash"></span>EQUIPE</div>
-      <h2>Quem está por trás da AIP</h2>
-      <p>Um time pequeno, cada um cuidando de uma parte do jogo.</p>
-    </div>
-  </div>
-  <div class="team-grid reveal">
-    <div class="member"><div class="role pixel">CEO</div><div class="name">Aipsinho</div></div>
-    <div class="member"><div class="role pixel">SUB-CHEFE</div><div class="name">T3rú</div></div>
-    <div class="member"><div class="role pixel">PROGRAMAÇÃO</div><div class="name">Kain</div></div>
-    <div class="member"><div class="role pixel">PROGRAMAÇÃO</div><div class="name">Chris</div></div>
-    <div class="member"><div class="role pixel">ARTE</div><div class="name">Maçã</div></div>
-    <div class="member"><div class="role pixel">ARTE</div><div class="name">Eli Boom</div></div>
-    <div class="member"><div class="role pixel">ARTE</div><div class="name">Neymar</div></div>
-    <div class="member"><div class="role pixel">GAME DESIGN</div><div class="name">WK</div></div>
-    <div class="member pending"><div class="role pixel">ZIDEN</div><div class="name">Em definição</div></div>
-  </div>
-</section>
-
-<section id="processo">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="kicker"><span class="dash"></span>PROCESSO</div>
-      <h2>Como um projeto caminha com a gente</h2>
-    </div>
-    <div class="process-steps reveal">
-      <div class="pstep"><div class="idx">01</div><h4>Descoberta</h4><p>Conceito, referências e o tom visual do jogo.</p></div>
-      <div class="pstep"><div class="idx">02</div><h4>Protótipo</h4><p>Mecânica principal jogável em pixel art.</p></div>
-      <div class="pstep"><div class="idx">03</div><h4>Produção</h4><p>Arte, animação, som e sistemas na Godot.</p></div>
-      <div class="pstep"><div class="idx">04</div><h4>Testes</h4><p>Ajustes de jogabilidade em PC e Android reais.</p></div>
-      <div class="pstep"><div class="idx">05</div><h4>Lançamento</h4><p>Exportação e publicação nas plataformas alvo.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="invert" id="contato">
-  <div class="wrap contact-inner">
-    <div class="reveal">
-      <div class="kicker"><span class="dash"></span>CONTATO</div>
-      <h2>Vamos colocar seu jogo em movimento</h2>
-      <p style="color:var(--muted-inv); margin-top:14px; max-width:40ch;">Conte um pouco sobre a ideia, a plataforma e o prazo — respondemos com os próximos passos.</p>
-      <div class="contact-info">
-        <div><strong>E-mail</strong>contato@aipservices.dev</div>
-        <div><strong>Atendimento</strong>Segunda a sexta, 9h–18h</div>
+  <!-- ================= PROJETOS ================= -->
+  <div class="page" data-page="projetos">
+    <section>
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <div class="kicker">NOSSOS PROJETOS</div>
+          <h2>O que estamos a construir</h2>
+        </div>
+        <div class="project-card reveal">
+          <div>
+            <div class="status-badge"><span class="dot"></span>EM DESENVOLVIMENTO</div>
+            <span class="tag">Projeto atual</span>
+            <h3>AIP Fighters</h3>
+            <p>Um jogo de luta 2D em pixel art desenvolvido pela AIP Services para Android e PC.</p>
+          </div>
+          <a href="javascript:void(0)" class="btn btn-ghost">Conhecer projeto →</a>
+        </div>
       </div>
-    </div>
-    <form id="contactForm" class="reveal">
-      <div class="field"><label for="nome">Nome</label><input id="nome" type="text" required placeholder="Seu nome"></div>
-      <div class="field"><label for="email">E-mail</label><input id="email" type="email" required placeholder="voce@exemplo.com"></div>
-      <div class="field"><label for="msg">Mensagem</label><textarea id="msg" required placeholder="Conte um pouco sobre o seu projeto ou proposta"></textarea></div>
-      <button type="submit" class="btn btn-primary" style="align-self:flex-start; border-color:var(--paper);">Enviar mensagem</button>
-      <div class="form-msg" id="formMsg"></div>
-    </form>
+    </section>
   </div>
-</section>
 
-<footer>
-  <div class="wrap foot-inner">
-    <div class="muted">© 2026 AIP Services. Estúdio de jogos 2D pixel art.</div>
-    <div class="foot-links">
-      <a href="#sobre">Sobre</a>
-      <a href="#fighters">AIP Fighters</a>
-      <a href="#equipe">Equipe</a>
-    </div>
-  </div>
-</footer>
-
-<script>
-  // hero pixel-noise animation — sparse flickering squares, CRT-ish
-  const canvas = document.getElementById('pixelCanvas');
-  const ctx = canvas.getContext('2d');
-  let w, h, cells;
-  const size = 4;
-
-  function resize(){
-    w = canvas.width = canvas.offsetWidth;
-    h = canvas.height = canvas.offsetHeight;
-    const cols = Math.floor(w / (size*10));
-    const rows = Math.floor(h / (size*10));
-    cells = [];
-    for(let i=0;i<cols*rows*0.02;i++){
-      cells.push({
-        x: Math.floor(Math.random()*cols)*size*10,
-        y: Math.floor(Math.random()*rows)*size*10,
-        life: Math.random()
-      });
-    }
-  }
-
-  function step(){
-    ctx.clearRect(0,0,w,h);
-    for(const c of cells){
-      c.life += 0.01;
-      const a = Math.abs(Math.sin(c.life)) * 0.06;
-      ctx.fillStyle = `rgba(10,10,10,${a})`;
-      ctx.fillRect(c.x, c.y, size, size);
-    }
-    requestAnimationFrame(step);
-  }
-
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  window.addEventListener('resize', resize);
-  resize();
-  if(!prefersReduced) requestAnimationFrame(step);
-
-  // scroll reveal
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-  // contact form
-  document.getElementById('contactForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    document.getElementById('formMsg').textContent = 'Mensagem pronta — conecte este formulário ao seu e-mail ou backend para receber os envios.';
-    this.reset();
-  });
-</script>
-
-</body>
-</html>
+  <!-- ================= EQUIPE ================= -->
+  <div class="page" data-page="equipe">
+    <section>
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <div class="kicker">NOSSA EQUIPE</div>
+          <h2>Quem está por trás da AIP</h2>
+        </div>
+        <div class="team-grid reveal">
+          <div class="member">
+            <div class="avatar">A</div>
+            <div class="name">Aipsinho</div>
+            <div class="role">CEO / Desenvolvedor</div>
+            <p class="desc">Direção geral do estúdio e desenvolvimento dos projetos.</p>
+          </div>
+          <div class="member">
+            <div class="avatar">T</div>
+            <div class="name">T3rú</div>
+            <div class="role">Subchefe / Sound Designer</div>
+            <p class="desc">Apoio à direção do estúdio e desenho de som dos projetos.</p>
+          </div>
+          <div class="member">
+            <div class="avatar">K</div>
+            <div class="name">Kain</div>
+            <div class="role">Programação</div>
+            <p class="desc">Desenvolvimento de sistemas e mecânicas de jogo.</p>
+          </div>
+          <div class="member">
+            <div class="avatar">C</div>
+            <div class="name">Chris</div>
+            <div class="role">Programação</div>
+            <p class="desc">Desenvolvimento de sistemas e mecânicas de jogo.</p>
+          </div>
+          <div class="member">
+            <div class="avatar">M</div>
+            <div class="name">Maçã</div>
+            <div class="role">Arte</div>
+            <p class="desc">Ilustração e direção de arte em pixel art.</p>
+          </div>
+          <div class="member">
+            <div class="avatar">E</div>
+            <div class="name">Eli Boom</div>
+            <div class="role">Arte</div>
+            <p class="desc">Ilustração e animação em pixel art.</p>
+          </div>
+          <div class="member">
+            <div class="avatar">N</div>
+            <div class="name">Neymar</div>
+            <div class="role">Arte</div>
+            <p class="desc">Ilustração e direção de arte em pixel art.</p>
+          </div>
+          <div class="member">
+            <div class="avatar">W</div>
+            <div class="name">WK</div>
+            <div class="role">Game Design</div>
+            <p class="desc">Design
