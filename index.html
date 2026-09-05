@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -6,6 +6,7 @@
 <title>AIP Services — Estúdio independente de jogos, software e experiências digitais</title>
 <meta name="description" content="AIP Services é um estúdio independente que desenvolve jogos, software e projetos digitais originais. Conheça a equipe e o AIP Fighters, nosso jogo de luta 2D em desenvolvimento.">
 
+<!-- Open Graph — atualize og:url e og:image com o endereço real quando o site estiver publicado -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="AIP Services — Criamos ideias. Construímos experiências.">
 <meta property="og:description" content="Estúdio independente de jogos, software e experiências digitais. Conheça a equipe e o AIP Fighters, nosso jogo de luta 2D em desenvolvimento.">
@@ -396,4 +397,310 @@
             <div class="avatar">W</div>
             <div class="name">WK</div>
             <div class="role">Game Design</div>
-            <p class="desc">Design
+            <p class="desc">Design de mecânicas e balanceamento dos jogos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= DIÁRIO ================= -->
+  <div class="page" data-page="diario">
+    <section>
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <div class="kicker">DIÁRIO DE DESENVOLVIMENTO</div>
+          <h2>Atualizações da AIP</h2>
+          <p>Bastidores e progresso dos nossos projetos — atualizado regularmente.</p>
+        </div>
+        <div class="diary-grid reveal">
+          <div class="post">
+            <div class="post-img"></div>
+            <div class="post-body">
+              <div class="post-date">Exemplo — substituir pela data real</div>
+              <h4>AIP Fighters — Novo personagem em desenvolvimento</h4>
+              <p>Um resumo curto da atualização entra aqui, com o essencial em uma ou duas frases.</p>
+              <a href="javascript:void(0)" class="more">Ler mais →</a>
+            </div>
+          </div>
+          <div class="post">
+            <div class="post-img"></div>
+            <div class="post-body">
+              <div class="post-date">Exemplo — substituir pela data real</div>
+              <h4>Bastidores do desenvolvimento</h4>
+              <p>Um resumo curto da atualização entra aqui, com o essencial em uma ou duas frases.</p>
+              <a href="javascript:void(0)" class="more">Ler mais →</a>
+            </div>
+          </div>
+          <div class="post">
+            <div class="post-img"></div>
+            <div class="post-body">
+              <div class="post-date">Exemplo — substituir pela data real</div>
+              <h4>Novo sistema de combate</h4>
+              <p>Um resumo curto da atualização entra aqui, com o essencial em uma ou duas frases.</p>
+              <a href="javascript:void(0)" class="more">Ler mais →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= CONTATO ================= -->
+  <div class="page" data-page="contato">
+    <section>
+      <div class="wrap contact-inner">
+        <div class="reveal">
+          <div class="kicker">FALE CONOSCO</div>
+          <h2>Tem uma dúvida, sugestão ou quer entrar em contacto?</h2>
+          <p style="color:var(--muted); margin-top:14px;">Envie-nos uma mensagem — respondemos o mais rápido possível.</p>
+        </div>
+        <form id="contactForm" class="reveal" novalidate>
+          <!-- honeypot anti-spam: campo escondido, bots costumam preenchê-lo -->
+          <input type="text" name="empresa_site" class="hp" tabindex="-1" autocomplete="off">
+          <div class="form-row">
+            <div class="field">
+              <label for="nome">Nome</label>
+              <input id="nome" name="nome" type="text" required placeholder="O seu nome">
+              <div class="field-error" id="err-nome"></div>
+            </div>
+            <div class="field">
+              <label for="email">E-mail</label>
+              <input id="email" name="email" type="email" required placeholder="voce@exemplo.com">
+              <div class="field-error" id="err-email"></div>
+            </div>
+          </div>
+          <div class="field">
+            <label for="assunto">Assunto</label>
+            <input id="assunto" name="assunto" type="text" required placeholder="Sobre o que é a mensagem?">
+            <div class="field-error" id="err-assunto"></div>
+          </div>
+          <div class="field">
+            <label for="mensagem">Mensagem</label>
+            <textarea id="mensagem" name="mensagem" required placeholder="Escreva a sua mensagem"></textarea>
+            <div class="field-error" id="err-mensagem"></div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="align-self:flex-start;" id="submitBtn">Enviar mensagem</button>
+          <div class="form-msg" id="formMsg"></div>
+        </form>
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="logo" data-nav="inicio"><span class="mark"></span>AIP SERVICES</div>
+        <p>Criamos ideias. Construímos experiências.</p>
+      </div>
+      <div class="foot-links">
+        <div class="foot-col">
+          <h5>NAVEGAÇÃO</h5>
+          <a href="#inicio" data-nav="inicio">Início</a>
+          <a href="#sobre" data-nav="sobre">Sobre</a>
+          <a href="#projetos" data-nav="projetos">Projetos</a>
+          <a href="#equipe" data-nav="equipe">Equipe</a>
+          <a href="#diario" data-nav="diario">Diário</a>
+          <a href="#contato" data-nav="contato">Contacto</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div class="muted">© 2026 AIP Services. Todos os direitos reservados.</div>
+      <div class="foot-legal">
+        <a href="javascript:void(0)">Política de Privacidade</a>
+        <a href="javascript:void(0)">Termos de Uso</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ============ MENU MOBILE ============
+  const burgerBtn = document.getElementById('burgerBtn');
+  const closeBtn = document.getElementById('closeBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burgerBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+  closeBtn.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  // ============ ROTEADOR DE PÁGINAS ============
+  // Cada opção do menu corresponde a uma "página" (#inicio, #sobre, #projetos,
+  // #equipe, #diario, #contato). Apenas uma fica visível de cada vez.
+  // O hash na URL é o que controla a página atual, então o botão "Voltar"
+  // do navegador funciona nativamente entre elas.
+  const PAGES = ['inicio', 'sobre', 'projetos', 'equipe', 'diario', 'contato'];
+  const TITLES = {
+    inicio: 'AIP Services — Início',
+    sobre: 'AIP Services — Sobre',
+    projetos: 'AIP Services — Projetos',
+    equipe: 'AIP Services — Equipe',
+    diario: 'AIP Services — Diário de Desenvolvimento',
+    contato: 'AIP Services — Contacto'
+  };
+
+  const appEl = document.getElementById('app');
+  const loadingBar = document.getElementById('loadingBar');
+  let currentPage = null;
+  let isAnimating = false;
+
+  function pageFromHash(){
+    const h = (location.hash || '').replace('#', '');
+    return PAGES.includes(h) ? h : 'inicio';
+  }
+
+  function setActiveNavLinks(name){
+    document.querySelectorAll('[data-nav]').forEach(el => {
+      el.classList.toggle('active', el.getAttribute('data-nav') === name);
+    });
+  }
+
+  function runReveals(pageEl){
+    const items = pageEl.querySelectorAll('.reveal');
+    items.forEach((el, i) => {
+      setTimeout(() => el.classList.add('in'), 60 + i * 60);
+    });
+  }
+
+  function goToPage(name, { pushHistory = true } = {}){
+    if (!PAGES.includes(name)) name = 'inicio';
+    if (name === currentPage && appEl.querySelector('.page.active')) return;
+    if (isAnimating) return;
+    isAnimating = true;
+
+    const nextEl = appEl.querySelector('.page[data-page="' + name + '"]');
+    const currentEl = appEl.querySelector('.page.active');
+
+    // barra de carregamento
+    loadingBar.className = 'loading-bar running';
+
+    const finishSwitch = () => {
+      if (currentEl){
+        currentEl.classList.remove('active', 'anim-out');
+      }
+      nextEl.classList.add('active', 'anim-in');
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      document.title = TITLES[name] || 'AIP Services';
+      setActiveNavLinks(name);
+      runReveals(nextEl);
+
+      loadingBar.classList.add('done');
+      setTimeout(() => {
+        loadingBar.classList.add('hide');
+        setTimeout(() => {
+          loadingBar.className = 'loading-bar';
+        }, 260);
+      }, 120);
+
+      setTimeout(() => { nextEl.classList.remove('anim-in'); }, 320);
+      currentPage = name;
+      isAnimating = false;
+    };
+
+    if (currentEl){
+      currentEl.classList.add('anim-out');
+      setTimeout(finishSwitch, 170);
+    } else {
+      finishSwitch();
+    }
+
+    if (pushHistory && location.hash.replace('#','') !== name){
+      history.pushState(null, '', '#' + name);
+    }
+  }
+
+  // cliques no menu (desktop, mobile e botões internos com data-nav)
+  document.querySelectorAll('[data-nav]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      const name = el.getAttribute('data-nav');
+      goToPage(name);
+    });
+  });
+
+  // botão Voltar / Avançar do navegador
+  window.addEventListener('popstate', () => {
+    goToPage(pageFromHash(), { pushHistory: false });
+  });
+
+  // primeira carga
+  (function init(){
+    const first = pageFromHash();
+    const firstEl = appEl.querySelector('.page[data-page="' + first + '"]');
+    firstEl.classList.add('active');
+    currentPage = first;
+    document.title = TITLES[first] || 'AIP Services';
+    setActiveNavLinks(first);
+    runReveals(firstEl);
+    if (!location.hash) history.replaceState(null, '', '#' + first);
+  })();
+
+  // ============ FORMULÁRIO DE CONTACTO ============
+  // Validação completa no browser, pronto para ligar a um backend real
+  // (ex: /api/contact) que leia o e-mail de destino de uma variável de
+  // ambiente (SUPPORT_EMAIL) — nunca escrever credenciais aqui.
+  const form = document.getElementById('contactForm');
+  const formMsg = document.getElementById('formMsg');
+  const submitBtn = document.getElementById('submitBtn');
+
+  function setError(field, message){
+    const errEl = document.getElementById('err-' + field);
+    const inputEl = document.getElementById(field);
+    if (errEl) errEl.textContent = message || '';
+    if (inputEl) inputEl.closest('.field')?.classList.toggle('error', !!message);
+  }
+
+  function validate(data){
+    let ok = true;
+    if (!data.nome.trim()){ setError('nome', 'Indique o seu nome.'); ok = false; } else setError('nome','');
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim());
+    if (!emailOk){ setError('email', 'Indique um e-mail válido.'); ok = false; } else setError('email','');
+    if (!data.assunto.trim()){ setError('assunto', 'Indique o assunto.'); ok = false; } else setError('assunto','');
+    if (!data.mensagem.trim() || data.mensagem.trim().length < 10){ setError('mensagem', 'Escreva uma mensagem com pelo menos 10 caracteres.'); ok = false; } else setError('mensagem','');
+    return ok;
+  }
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    formMsg.className = 'form-msg';
+    formMsg.textContent = '';
+
+    const data = {
+      nome: form.nome.value,
+      email: form.email.value,
+      assunto: form.assunto.value,
+      mensagem: form.mensagem.value,
+      empresa_site: form.empresa_site.value // honeypot — deve chegar vazio
+    };
+
+    if (data.empresa_site){ return; } // provável bot, ignora silenciosamente
+    if (!validate(data)) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'A enviar...';
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (!res.ok) throw new Error('Falha no envio');
+      formMsg.classList.add('ok');
+      formMsg.textContent = 'Mensagem enviada com sucesso. Obrigado pelo contacto!';
+      form.reset();
+    } catch (err) {
+      formMsg.classList.add('err');
+      formMsg.textContent = 'Não foi possível enviar agora — este formulário ainda precisa de um backend ligado (ver comentário no código). Tente novamente mais tarde ou escreva para o e-mail de contacto.';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Enviar mensagem';
+    }
+  });
+</script>
+
+</body>
+</html>
